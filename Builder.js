@@ -5,16 +5,21 @@ var DesignPatterns = DesignPatterns || {};
 DesignPatterns.Builder = (function(document) {
 
 	function Component(text) {
-		this.text = text;
+		this.text = text || '';
 		var div = document.createElement('div'),
-		textContent = document.createTextNode(text);
+		textContent = document.createTextNode(this.text);
 		div.appendChild(textContent);
 		this.DOMRoot = div;
 	}
 
-	Component.prototype.update = function() {
+	Component.prototype._updateDOM = function() {
 		this.DOMRoot.textContent = this.text;
-	}
+	};
+
+	Component.prototype.setText = function(text) {
+		this.text = text;
+		this._updateDOM();
+	};
 
 	var Buttons = (function() {
 		function ButtonState(button) {
@@ -41,17 +46,17 @@ DesignPatterns.Builder = (function(document) {
 			this.button.state = this.startState;
 		};
 	
-		function Button(StartButtonState, StopButtonState) {
+		function Button(StartButtonState, StopButtonState, translationFactory) {
 			this.state = new StartButtonState(this, StopButtonState);
 			this.DOMRoot = document.createElement('button');
-			this._textContent = document.createTextNode(this.text || '');
-			this.DOMRoot.appendChild(this._textContent);
+			this.translation = translationFactory.createTranslation(this.state.text);
+			this.DOMRoot.appendChild(this.translation.getTextNode());
 			this.DOMRoot.addEventListener('click', this.toggleState.bind(this));
 			this._updateDOM();
 		}
 	
 		Button.prototype._updateDOM = function() {
-			this._textContent.textContent = this.state.text;
+			this.translation.setId(this.state.text);
 			return this.DOMRoot;
 		};
 	
@@ -79,8 +84,8 @@ DesignPatterns.Builder = (function(document) {
 
 		ColoredStopButtonState.prototype = Object.create(StopButtonState.prototype);
 
-		function ColoredButton() {
-			Button.call(this, ColoredStartButtonState, ColoredStopButtonState);
+		function ColoredButton(translationFactory) {
+			Button.call(this, ColoredStartButtonState, ColoredStopButtonState, translationFactory);
 		}
 
 		ColoredButton.prototype = Object.create(Button.prototype);
@@ -90,22 +95,28 @@ DesignPatterns.Builder = (function(document) {
 			this.DOMRoot.className = 'u-' + this.state._color;
 		}
 
+		function ButtonFactory(type, translationFactory) {
+			this.type = type;
+			this.translationFactory = translationFactory;
+		}
+
+		ButtonFactory.prototype.setTranslationFactory = function(translationFactory) {
+			this.translationFactory = translationFactory;
+		};
+	
+		ButtonFactory.prototype.createButton = function() {
+			var button = new this.type(this.translationFactory);
+			return button;
+		}
+
 		return {
 			ColoredButton: ColoredButton,
-			Button
+			Button: Button,
+			ButtonFactory: ButtonFactory
 		};
 	})();
 
-	function ButtonFactory(type) {
-		this.type = type;
-	}
-
-	ButtonFactory.prototype.createButton = function() {
-		var button = new this.type();
-		return button;
-	}
-
-	function App(Component, buttonFactory) {
+	function App(Component, buttonFactory, translationProvider) {
 		this.Component = Component;
 		this.buttonFactory = buttonFactory;
 		this.iterator = 0;
@@ -118,6 +129,17 @@ DesignPatterns.Builder = (function(document) {
 
 		DOMRoot.appendChild(component.DOMRoot);
 		DOMRoot.appendChild(button.DOMRoot);
+
+		var switchLocaleBtn = document.createElement('button');
+		var switchLocaleBtnLabel = document.createTextNode(translationProvider.getLocale());
+		switchLocaleBtn.appendChild(switchLocaleBtnLabel);
+		switchLocaleBtn.addEventListener('click', function() {
+			var locale = translationProvider.getLocale();
+			translationProvider.setLocale(locale === 'en' ? 'cs' : 'en');
+			this.textContent = locale;
+		});
+		DOMRoot.appendChild(document.createElement('br'));
+		DOMRoot.appendChild(switchLocaleBtn);
 		
 		this.button = button;
 		this.component = component;
@@ -126,9 +148,7 @@ DesignPatterns.Builder = (function(document) {
 	
 	App.prototype.incrementIterator = function() {
 		this.iterator++;
-		var component = this.component;
-		component.text = this.iterator.toString();
-		component.update();
+		this.component.setText(this.iterator.toString());
 	};
 
 	App.prototype.handleClick = function() {
@@ -142,7 +162,19 @@ DesignPatterns.Builder = (function(document) {
 
 	var Test = (function() {
 		function run() {
-			var app = new App(Component, new ButtonFactory(Buttons.ColoredButton));
+			var translationTables = {
+				'cs': {
+					'Start': 'Zacni',
+					'Stop': 'Zastav'
+				},
+				'en': {
+					'Start': 'Start',
+					'Stop': 'Stop'
+				}
+			}
+			var translationProvider = new Translation.TranslationProvider(translationTables, 'cs');
+			var translationFactory = new Translation.TranslationFactory(translationProvider);
+			var app = new App(Component, new Buttons.ButtonFactory(Buttons.ColoredButton, translationFactory), translationProvider);
 			document.body.appendChild(app.DOMRoot);
 		}
 
@@ -155,8 +187,46 @@ DesignPatterns.Builder = (function(document) {
 		Component: Component,
 		Buttons: Buttons,
 		App: App,
-		ButtonFactory: ButtonFactory,
 		Test: Test
 	};
 
 }).call(DesignPatterns, document);
+
+function tmp() {
+	var translationTables = {
+		'en': {
+			'e-mail': 'e-mail',
+			'name': 'Name'
+		},
+		'cs': {
+			'surname': 'Příjmení',
+			'name': 'Jméno'
+		}
+	}
+	var translationProvider = new Translation.TranslationProvider(translationTables, 'cs');
+
+	var translationFactory = new Translation.TranslationFactory(translationProvider);
+
+	var div = document.createElement('div');
+	var name = translationFactory.createTranslation('name');
+	div.appendChild(name.getTextNode());
+	document.body.appendChild(div);
+	
+	div = document.createElement('div');
+	var surname = translationFactory.createTranslation('surname');
+	div.appendChild(surname.getTextNode());
+	document.body.appendChild(div);
+
+	var switchLocaleBtn = document.createElement('button');
+	var switchLocaleBtnLabel = document.createTextNode('En');
+	switchLocaleBtn.appendChild(switchLocaleBtnLabel);
+	switchLocaleBtn.addEventListener('click', function() {
+		var locale = translationProvider.getLocale();
+		translationProvider.setLocale(locale === 'en' ? 'cs' : 'en');
+		this.textContent = locale === 'en' ? 'en' : 'cs';
+	});
+
+	document.body.appendChild(switchLocaleBtn);
+}
+
+tmp();
