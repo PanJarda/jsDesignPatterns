@@ -132,12 +132,15 @@ DesignPatterns.Builder = (function(document) {
 
 		var switchLocaleBtn = document.createElement('button');
 		var switchLocaleBtnLabel = document.createTextNode(translationProvider.getLocale());
+		
 		switchLocaleBtn.appendChild(switchLocaleBtnLabel);
+		
 		switchLocaleBtn.addEventListener('click', function() {
 			var locale = translationProvider.getLocale();
 			translationProvider.setLocale(locale === 'en' ? 'cs' : 'en');
 			this.textContent = locale;
 		});
+		
 		DOMRoot.appendChild(document.createElement('br'));
 		DOMRoot.appendChild(switchLocaleBtn);
 		
@@ -171,10 +174,14 @@ DesignPatterns.Builder = (function(document) {
 					'Start': 'Start',
 					'Stop': 'Stop'
 				}
-			}
+			};
+
 			var translationProvider = new Translation.TranslationProvider(translationTables, 'cs');
+
 			var translationFactory = new Translation.TranslationFactory(translationProvider);
+			
 			var app = new App(Component, new Buttons.ButtonFactory(Buttons.ColoredButton, translationFactory), translationProvider);
+			
 			document.body.appendChild(app.DOMRoot);
 		}
 
