@@ -115,22 +115,41 @@ DesignPatterns.Builder = (function(document) {
 		};
 	})();
 
+	function Layout() {
+		var header = document.createElement('div');
+		header.className = 'header';
+		var h1 = document.createElement('h1');
+		h1.textContent = 'Ahoj';
+		header.appendChild(h1);
+		var content = document.createElement('section');
+		content.className = 'Content';
+		var container = document.createElement('div');
+		container.appendChild(header);
+		container.appendChild(content);
+		this.content = content;
+		this.DOMRoot = container;
+	}
+
+	Layout.prototype.appendChild = function(child) {
+		this.content.appendChild(child);
+	}
+
 	function App(Component, buttonFactory, translationProvider) {
 		this.Component = Component;
 		this.buttonFactory = buttonFactory;
 		this.iterator = 0;
 
-		var DOMRoot = document.createElement('div'),
+		var layout = new Layout(),
 		button = this.buttonFactory.createButton(),
 		component = new this.Component(this.iterator.toString());
 
 		button.addEventListener('click', this.handleClick.bind(this));
 
-		DOMRoot.appendChild(component.DOMRoot);
-		DOMRoot.appendChild(button.DOMRoot);
+		layout.appendChild(component.DOMRoot);
+		layout.appendChild(button.DOMRoot);
 
 		var switchLocaleBtn = document.createElement('button');
-		var switchLocaleBtnLabel = document.createTextNode(translationProvider.getLocale());
+		var switchLocaleBtnLabel = document.createTextNode('en');
 		
 		switchLocaleBtn.appendChild(switchLocaleBtnLabel);
 		
@@ -140,12 +159,12 @@ DesignPatterns.Builder = (function(document) {
 			this.textContent = locale;
 		});
 		
-		DOMRoot.appendChild(document.createElement('br'));
-		DOMRoot.appendChild(switchLocaleBtn);
+		layout.appendChild(document.createElement('br'));
+		layout.appendChild(switchLocaleBtn);
 		
 		this.button = button;
 		this.component = component;
-		this.DOMRoot = DOMRoot;
+		this.DOMRoot = layout.DOMRoot;
 	}
 	
 	App.prototype.incrementIterator = function() {
