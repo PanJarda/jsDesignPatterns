@@ -15,8 +15,51 @@
 		<script>
 			(function() {
 				"use strict";
-				DesignPatterns.Builder.Test.run();
+				window.addEventListener('DOMContentLoaded', function() {
+					DesignPatterns.Builder.Test.run();
+				});
 			})();
+
+
+			function tmp() {
+				var translationTables = {
+					'en': {
+						'e-mail': 'e-mail',
+						'name': 'Name'
+					},
+					'cs': {
+						'surname': 'Příjmení',
+						'name': 'Jméno'
+					}
+				};
+
+				var translationProvider = new Translation.TranslationProvider(translationTables, 'cs');
+
+				var translationFactory = new Translation.TranslationFactory(translationProvider);
+
+				var div = document.createElement('div');
+				var name = translationFactory.createTranslation('name');
+				div.appendChild(name.getTextNode());
+				document.body.appendChild(div);
+				
+				div = document.createElement('div');
+				var surname = translationFactory.createTranslation('surname');
+				div.appendChild(surname.getTextNode());
+				document.body.appendChild(div);
+
+				var switchLocaleBtn = document.createElement('button');
+				var switchLocaleBtnLabel = document.createTextNode('En');
+				switchLocaleBtn.appendChild(switchLocaleBtnLabel);
+				switchLocaleBtn.addEventListener('click', function() {
+					var locale = translationProvider.getLocale();
+					translationProvider.setLocale(locale === 'en' ? 'cs' : 'en');
+					this.textContent = locale === 'en' ? 'en' : 'cs';
+				});
+
+				document.body.appendChild(switchLocaleBtn);
+			};
+
+			window.addEventListener('DOMContentLoaded', tmp);
 		</script>
 	</body>
 </html>

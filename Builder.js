@@ -1,8 +1,7 @@
-"use strict";
-
 var DesignPatterns = DesignPatterns || {};
 
 DesignPatterns.Builder = (function(document) {
+	"use strict";
 
 	function Component(text) {
 		this.text = text || '';
@@ -93,7 +92,7 @@ DesignPatterns.Builder = (function(document) {
 		ColoredButton.prototype._updateDOM = function() {
 			Button.prototype._updateDOM.call(this);
 			this.DOMRoot.className = 'u-' + this.state._color;
-		}
+		};
 
 		function ButtonFactory(type, translationFactory) {
 			this.type = type;
@@ -107,7 +106,7 @@ DesignPatterns.Builder = (function(document) {
 		ButtonFactory.prototype.createButton = function() {
 			var button = new this.type(this.translationFactory);
 			return button;
-		}
+		};
 
 		return {
 			ColoredButton: ColoredButton,
@@ -198,42 +197,3 @@ DesignPatterns.Builder = (function(document) {
 	};
 
 }).call(DesignPatterns, document);
-
-function tmp() {
-	var translationTables = {
-		'en': {
-			'e-mail': 'e-mail',
-			'name': 'Name'
-		},
-		'cs': {
-			'surname': 'Příjmení',
-			'name': 'Jméno'
-		}
-	}
-	var translationProvider = new Translation.TranslationProvider(translationTables, 'cs');
-
-	var translationFactory = new Translation.TranslationFactory(translationProvider);
-
-	var div = document.createElement('div');
-	var name = translationFactory.createTranslation('name');
-	div.appendChild(name.getTextNode());
-	document.body.appendChild(div);
-	
-	div = document.createElement('div');
-	var surname = translationFactory.createTranslation('surname');
-	div.appendChild(surname.getTextNode());
-	document.body.appendChild(div);
-
-	var switchLocaleBtn = document.createElement('button');
-	var switchLocaleBtnLabel = document.createTextNode('En');
-	switchLocaleBtn.appendChild(switchLocaleBtnLabel);
-	switchLocaleBtn.addEventListener('click', function() {
-		var locale = translationProvider.getLocale();
-		translationProvider.setLocale(locale === 'en' ? 'cs' : 'en');
-		this.textContent = locale === 'en' ? 'en' : 'cs';
-	});
-
-	document.body.appendChild(switchLocaleBtn);
-}
-
-tmp();
