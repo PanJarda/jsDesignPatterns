@@ -1,32 +1,4 @@
-/**
- *
- *
- * @licstart  The following is the entire license notice for the 
- *  JavaScript code in this page.
- *
- * Copyright (C) 2014  Jaroslav Pernica
- *
- *
- * The JavaScript code in this page is free software: you can
- * redistribute it and/or modify it under the terms of the GNU
- * General Public License (GNU GPL) as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option)
- * any later version.  The code is distributed WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
- *
- * As additional permission under GNU GPL version 3 section 7, you
- * may distribute non-source (e.g., minimized or compacted) forms of
- * that code without the copy of the GNU GPL normally required by
- * section 4, provided you include this license notice and a URL
- * through which recipients can access the Corresponding Source.
- *
- * @licend  The above is the entire license notice
- * for the JavaScript code in this page.
- *
- */
-
- "use strict";
+"use strict";
 
 var DesignPatterns = DesignPatterns || {};
 
@@ -34,64 +6,63 @@ DesignPatterns.Builder = (function(document) {
 
 	function Component(text) {
 		this.text = text;
-		this.root;
+		this.DOMRoot;
 	}
 
 	Component.prototype.render = function() {
 		var div = document.createElement('div'),
 		textContent = document.createTextNode(this.text);
 		div.appendChild(textContent);
-		return this.root = div;
+		return this.DOMRoot = div;
 	};
 
 	Component.prototype.update = function() {
-		this.root.textContent = this.text;
+		this.DOMRoot.textContent = this.text;
 	}
 
-	var Button = (function() {
+	var Buttons = (function() {
 		function ButtonState(button) {
 			this.button = button;
 		}
 	
-		function StartButtonState(button) {
+		function StartButtonState(button, StopState) {
 			ButtonState.call(this, button);
 			this.text = 'Start';
+			this.stopState = new StopState(button, this);
 		}
 	
 		StartButtonState.prototype.toggleState = function() {
-			this.button.state = this.button.states.STOP;
+			this.button.state = this.stopState;
 		};
 	
-		function StopButtonState(button) {
+		function StopButtonState(button, startState) {
 			ButtonState.call(this, button);
+			this.startState = startState;
 			this.text = 'Stop';
 		}
 	
 		StopButtonState.prototype.toggleState = function() {
-			this.button.state = this.button.states.START;
+			this.button.state = this.startState;
 		};
 	
 		function Button(StartButtonState, StopButtonState) {
-			this.states = {
-				START: new StartButtonState(this),
-				STOP: new StopButtonState(this)
-			};
-			this.state = this.states.START;
-			this.root;
+			this.state = new StartButtonState(this, StopButtonState);
+			this.DOMRoot;
 			this._textContent;
 		}
 	
 		Button.prototype.render = function() {
-			this.root = document.createElement('button');
+			this.DOMRoot = document.createElement('button');
 			this._textContent = document.createTextNode(this.text || '');
-			this.root.appendChild(this._textContent);
+			this.DOMRoot.appendChild(this._textContent);
+			this.DOMRoot.addEventListener('click', this.toggleState.bind(this));
 			this._updateDOM();
-			return this.root;
+			return this.DOMRoot;
 		};
 	
 		Button.prototype._updateDOM = function() {
 			this._textContent.textContent = this.state.text;
-			return this.root;
+			return this.DOMRoot;
 		};
 	
 		Button.prototype.toggleState = function() {
@@ -100,20 +71,20 @@ DesignPatterns.Builder = (function(document) {
 		};
 	
 		Button.prototype.addEventListener = function(event, handler) {
-			this.root.addEventListener(event, handler.bind(this));
+			this.DOMRoot.addEventListener(event, handler.bind(this));
 		};
 
 
-		function ColoredStartButtonState(button) {
-			StartButtonState.call(this, button);
+		function ColoredStartButtonState(button, ColoredStopButtonState) {
 			this._color = 'green';
+			StartButtonState.call(this, button, ColoredStopButtonState);
 		}
 
 		ColoredStartButtonState.prototype = Object.create(StartButtonState.prototype);
 
-		function ColoredStopButtonState(button) {
-			StopButtonState.call(this, button);
+		function ColoredStopButtonState(button, startState) {
 			this._color = 'red';
+			StopButtonState.call(this, button, startState);
 		}
 
 		ColoredStopButtonState.prototype = Object.create(StopButtonState.prototype);
@@ -126,39 +97,67 @@ DesignPatterns.Builder = (function(document) {
 
 		ColoredButton.prototype._updateDOM = function() {
 			Button.prototype._updateDOM.call(this);
-			this.root.className = 'u-' + this.state._color;
+			this.DOMRoot.className = 'u-' + this.state._color;
 		}
 
-		return ColoredButton;
+		return {
+			ColoredButton: ColoredButton,
+			Button
+		};
 	})();
 
+	function ButtonFactory(type) {
+		this.type = type;
+	}
+
+	ButtonFactory.prototype.createButton = function() {
+		var button = new this.type();
+		button.render();
+		return button;
+	}
+
+	function App(Component, buttonFactory) {
+		this.Component = Component;
+		this.buttonFactory = buttonFactory;
+		this.iterator = 0;
+
+		var DOMRoot = document.createElement('div'),
+		button = this.buttonFactory.createButton(),
+		component = new this.Component();
+
+		component.text = this.iterator.toString();
+		component.render();
+
+		button.addEventListener('click', this.handleClick.bind(this));
+
+		DOMRoot.appendChild(component.DOMRoot);
+		DOMRoot.appendChild(button.DOMRoot);
+		
+		this.button = button;
+		this.component = component;
+		this.DOMRoot = DOMRoot;
+	}
+	
+	App.prototype.incrementIterator = function() {
+		this.iterator++;
+		var component = this.component;
+		component.text = this.iterator.toString();
+		component.update();
+	};
+
+	App.prototype.handleClick = function() {
+		if (this.intervalId) {
+			clearInterval(this.intervalId);
+			this.intervalId = null;
+		} else {
+			this.intervalId = setInterval(this.incrementIterator.bind(this), 10);
+		}
+	};
+
 	var Test = (function() {
-		var intervalId;
-
 		function run() {
-			var i = 0;
-
-			var component = new Component(i.toString());
-			component.render();
-			document.body.appendChild(component.root);
-
-			var button = new Button();
-			button.text = 'Start';
-			button.render();
-			document.body.appendChild(button.root);
-			button.addEventListener('click', function() {
-				if (intervalId) {
-					clearInterval(intervalId);
-					intervalId = null;
-				} else {
-					intervalId = setInterval(function() {
-						component.text = i.toString();
-						component.update();
-						i++;
-					}, 10);
-				}
-				this.toggleState();
-			});
+			var app = new App(Component, new ButtonFactory(Buttons.ColoredButton));
+			document.body.appendChild(app.DOMRoot);
 		}
 
 		return {
@@ -168,7 +167,9 @@ DesignPatterns.Builder = (function(document) {
 
 	return {
 		Component: Component,
-		Button: Button,
+		Buttons: Buttons,
+		App: App,
+		ButtonFactory: ButtonFactory,
 		Test: Test
 	};
 
