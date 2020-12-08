@@ -6,15 +6,11 @@ DesignPatterns.Builder = (function(document) {
 
 	function Component(text) {
 		this.text = text;
-		this.DOMRoot;
-	}
-
-	Component.prototype.render = function() {
 		var div = document.createElement('div'),
-		textContent = document.createTextNode(this.text);
+		textContent = document.createTextNode(text);
 		div.appendChild(textContent);
-		return this.DOMRoot = div;
-	};
+		this.DOMRoot = div;
+	}
 
 	Component.prototype.update = function() {
 		this.DOMRoot.textContent = this.text;
@@ -47,18 +43,12 @@ DesignPatterns.Builder = (function(document) {
 	
 		function Button(StartButtonState, StopButtonState) {
 			this.state = new StartButtonState(this, StopButtonState);
-			this.DOMRoot;
-			this._textContent;
-		}
-	
-		Button.prototype.render = function() {
 			this.DOMRoot = document.createElement('button');
 			this._textContent = document.createTextNode(this.text || '');
 			this.DOMRoot.appendChild(this._textContent);
 			this.DOMRoot.addEventListener('click', this.toggleState.bind(this));
 			this._updateDOM();
-			return this.DOMRoot;
-		};
+		}
 	
 		Button.prototype._updateDOM = function() {
 			this._textContent.textContent = this.state.text;
@@ -112,7 +102,6 @@ DesignPatterns.Builder = (function(document) {
 
 	ButtonFactory.prototype.createButton = function() {
 		var button = new this.type();
-		button.render();
 		return button;
 	}
 
@@ -123,10 +112,7 @@ DesignPatterns.Builder = (function(document) {
 
 		var DOMRoot = document.createElement('div'),
 		button = this.buttonFactory.createButton(),
-		component = new this.Component();
-
-		component.text = this.iterator.toString();
-		component.render();
+		component = new this.Component(this.iterator.toString());
 
 		button.addEventListener('click', this.handleClick.bind(this));
 
