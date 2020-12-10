@@ -1,6 +1,8 @@
 (function(global) {
 	'use strict';
 
+	var Utilities = global.DesignPatterns.AbstractFactory.Tables.Utilities;
+
 	function PublicationList(tableFactory) {
 		this.tableFactory = tableFactory;
 	}
@@ -34,7 +36,5 @@
 		this.tableFactory = tableFactory;
 	};
 
-	global.DesignPatterns.AbstractFactory.Tables.Utilities = {
-		PublicationList: PublicationList
-	};
+	Utilities.PublicationList = PublicationList;
 })(this);
