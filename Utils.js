@@ -9,6 +9,11 @@ DesignPatterns.Utils = (function() {
     this.name = "BadMethodCallException";
   }
 
+  function InstantiationException(message) {
+    this.message = message;
+    this.name = 'InstantiationException';
+  }
+
   function Iterable() {}
 
   Iterable.prototype.rewind = function() {};
@@ -57,6 +62,7 @@ DesignPatterns.Utils = (function() {
 
   return {
 		List: List,
-		BadMethodCallException: BadMethodCallException
+    BadMethodCallException: BadMethodCallException,
+    InstantiationException: InstantiationException
   };
 })();

@@ -83,8 +83,8 @@
 			run: function() {
 				var bookPublisher = new BookPublisher('PC');
 				var book = bookPublisher.sellPublication(100);
-
-				console.log(book);
+				
+				console.log(book.constructor.name, book.category, book.pageCount, book.pageNumber);
 			}
 		};
 		
