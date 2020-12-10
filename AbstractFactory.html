@@ -4,7 +4,18 @@
 		<meta charset="UTF-8" />
 	</head>
 	<body>
-		<script src="Utils.js"></script>
-		<script src="AbstractFactory.js"></script>
+		<script src="DesignPatterns.js"></script>
+		<script src="DesignPatterns/AbstractFactory.js"></script>
+		<script src="DesignPatterns/AbstractFactory/Tables.js"></script>
+		<script src="DesignPatterns/AbstractFactory/Tables/HTML.js"></script>
+		<script src="DesignPatterns/AbstractFactory/Tables/Text.js"></script>
+		<script src="DesignPatterns/AbstractFactory/Tables/Utilities.js"></script>
+		<script src="DesignPatterns/AbstractFactory/Test.js"></script>
+		<script>
+			(function() {
+				'use strict';
+				window.addEventListener('DOMContentLoaded', DesignPatterns.AbstractFactory.Test.run);
+			})();
+		</script>
 	</body>
 </html>
