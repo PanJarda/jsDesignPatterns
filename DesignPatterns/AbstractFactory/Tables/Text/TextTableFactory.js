@@ -2,10 +2,12 @@
 	'use strict';
 
 	var Tables = global.DesignPatterns.AbstractFactory.Tables
-	var TextCell = Tables.Text.TextCell;
-	var TextTable = Tables.Text.TextTable;
-	var TextRow = Tables.Text.TextRow;
-	var TextHeader = Tables.Text.TextHeader;
+	var Text = Tables.Text;
+	var TextCell = Text.TextCell;
+	var TextHeaderCell = Text.TextHeaderCell;
+	var TextTable = Text.TextTable;
+	var TextRow = Text.TextRow;
+	var TextHeader = Text.TextHeader;
 
 	function TextTableFactory() {}
 
@@ -19,6 +21,10 @@
 
 	TextTableFactory.prototype.createCell = function(content) {
 		return new TextCell(content);
+	};
+
+	TextTableFactory.prototype.createHeaderCell = function(content) {
+		return new TextHeaderCell(content);
 	};
 
 	TextTableFactory.prototype.createHeader = function() {

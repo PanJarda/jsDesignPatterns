@@ -3,6 +3,7 @@
 
 	var HTML = global.DesignPatterns.AbstractFactory.Tables.HTML;
 	var HTMLCell = HTML.HTMLCell;
+	var HTMLHeaderCell = HTML.HTMLHeaderCell;
 	var HTMLTable = HTML.HTMLTable;
 	var HTMLRow = HTML.HTMLRow;
 	var HTMLHeader = HTML.HTMLHeader;
@@ -13,6 +14,10 @@
 
 	HTMLTableFactory.prototype.createCell = function(content) {
 		return new HTMLCell(content);
+	};
+
+	HTMLTableFactory.prototype.createHeaderCell = function(content) {
+		return new HTMLHeaderCell(content);
 	};
 
 	HTMLTableFactory.prototype.createRow = function() {

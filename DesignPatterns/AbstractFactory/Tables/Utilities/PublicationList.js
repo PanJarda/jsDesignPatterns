@@ -12,8 +12,8 @@
 		var table = factory.createTable('Publication list');
 		var header = factory.createHeader();
 		
-		header.addCell(factory.createCell('Category'));
-		header.addCell(factory.createCell('Page count'));
+		header.addCell(factory.createHeaderCell('Category'));
+		header.addCell(factory.createHeaderCell('Page count'));
 		table.setHeader(header);
 
 		var cell, row;
