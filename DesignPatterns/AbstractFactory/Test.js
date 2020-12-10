@@ -3,10 +3,10 @@
 
 	function run() {
 		var publications = [
-			['PC', 100],
-			['PC', 380],
-			['medicine', 250],
-			['history', 70]
+			['PC', 100, 'fff'],
+			['PC', 380, 'fsd'],
+			['medicine', 250, 'sdf'],
+			['history', 70, 'dffsd']
 		];
 
 		var htmlTableFactory = new Tables.HTML.HTMLTableFactory(document.body);

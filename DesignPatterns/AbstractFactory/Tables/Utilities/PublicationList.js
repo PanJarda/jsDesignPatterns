@@ -14,6 +14,7 @@
 		
 		header.addCell(factory.createHeaderCell('Category'));
 		header.addCell(factory.createHeaderCell('Page count'));
+		header.addCell(factory.createHeaderCell('sd'));
 		table.setHeader(header);
 
 		var cell, row;
