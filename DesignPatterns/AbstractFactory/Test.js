@@ -16,6 +16,10 @@
 		var textTableFactory = new Tables.Text.TextTableFactory();
 		publicationList.setTableFactory(textTableFactory);
 		publicationList.displayTable(publications);
+
+		var csvTableFactory = new Tables.CSV.CSVTableFactory();
+		publicationList.setTableFactory(csvTableFactory);
+		publicationList.displayTable(publications);
 	}
 
 	global.DesignPatterns.AbstractFactory.Test = {
