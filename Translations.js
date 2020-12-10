@@ -12,7 +12,7 @@
 			this.translationInstances.push(translationInstance);
 			var translation = this.translationTables[this.locale][translationInstance.getId()];
 			translationInstance.setText(translation);
-		}
+		};
 
 		TranslationProvider.prototype.unregisterTranslationInstance = function(translationInstance) {
 			var instances = this.translationInstances;

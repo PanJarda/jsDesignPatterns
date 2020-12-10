@@ -11,17 +11,17 @@
 		<script src="Utils.js"></script>
 		<script src="Translations.js"></script>
 		<script src="State.js"></script>
-		<script src="Builder.js"></script>
+		<script src="App.js"></script>
 		<script>
 			(function() {
 				"use strict";
 				window.addEventListener('DOMContentLoaded', function() {
-					DesignPatterns.Builder.Test.run();
+					DesignPatterns.App.Test.run();
 				});
 			})();
 
 
-			function tmp() {
+			function translationTest() {
 				var translationTables = {
 					'en': {
 						'e-mail': 'e-mail',
@@ -59,7 +59,7 @@
 				document.body.appendChild(switchLocaleBtn);
 			};
 
-			window.addEventListener('DOMContentLoaded', tmp);
+			window.addEventListener('DOMContentLoaded', translationTest);
 		</script>
 	</body>
 </html>
