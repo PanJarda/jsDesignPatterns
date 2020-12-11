@@ -14,24 +14,24 @@
 	WarmedUpPrinterState.prototype.constructor = WarmedUpPrinterState;
 
 	WarmedUpPrinterState.prototype.plugIn = function() {
-		throw new BadMethodCallException("Tiskárna již byla zapojena!");
+		throw new BadMethodCallException("Printer has already been plugged in!");
 	};
 
 	WarmedUpPrinterState.prototype.turnOn = function() {
-		throw new BadMethodCallException("Tiskárna již byla zapnuta!");
+		throw new BadMethodCallException("Printer has already been turned on!");
 	};
 
 	WarmedUpPrinterState.prototype.warmUp = function() {
-		throw new BadMethodCallException("Tiskárna již byla rozehřáta!");
+		throw new BadMethodCallException("Printer has already been warmed up!");
 	};
 
 	WarmedUpPrinterState.prototype.turnOff = function() {
 		this.printer.setState(this.printer.states.PLUGED_IN);
-		console.log("Tiskárna vypnuta.");
+		console.log("Printer turned off");
 	};
 
 	WarmedUpPrinterState.prototype.unplug = function() {
-		throw new BadMethodCallException("Tiskárna je stále zapnutá!");
+		throw new BadMethodCallException("Printer is still turned on!");
 	};
 
 
