@@ -5,7 +5,7 @@ Showcase of various design patterns in vanilla es5.
 make
 ```
 
-# Run
+# Run examples
 open `public/index.html` in your browser or run local http server:
 
 ```bash
