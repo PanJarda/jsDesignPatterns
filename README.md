@@ -15,7 +15,7 @@ python2 -m SimpleHTTPServer
 
 Examples not depending on DOM could be loaded in node REPL like this:
 
-```js
+```bash
 > .load public/State/build.js
 > DesignPatterns.State.Test.run();
 Printer plugged in to network.
