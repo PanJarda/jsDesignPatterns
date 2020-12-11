@@ -15,5 +15,5 @@
 		this.pageNumber = pageNumber;
 	};
 
-	global.DesignPatterns.Factory.AbstractPublication = AbstractPublication;
+	global.DesignPatterns.Factory.Publications.AbstractPublication = AbstractPublication;
 })(this)

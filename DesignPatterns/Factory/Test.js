@@ -1,9 +1,9 @@
 (function(global) {
 	'use strict';
-
-	var Factory = global.DesignPatterns.Factory;
-	var BookPublisher = Factory.BookPublisher;
-	var JournalPublisher = Factory.JournalPublisher;
+	var Factory =  global.DesignPatterns.Factory;
+	var Publications = Factory.Publications;
+	var BookPublisher = Publications.Books.BookPublisher;
+	var JournalPublisher = Publications.Journals.JournalPublisher;
 
 	function run() {
 		var bookPublisher = new BookPublisher('PC');

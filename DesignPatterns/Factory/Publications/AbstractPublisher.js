@@ -17,5 +17,5 @@
 		return publication;
 	};
 
-	global.DesignPatterns.Factory.AbstractPublisher = AbstractPublisher;
+	global.DesignPatterns.Factory.Publications.AbstractPublisher = AbstractPublisher;
 })(this);

@@ -1,8 +1,8 @@
 (function(global) {
 	'use strict';
 
-	var Factory = global.DesignPatterns.Factory;
-	var AbstractPublication = Factory.AbstractPublication;
+	var Publications = global.DesignPatterns.Factory.Publications;
+	var AbstractPublication = Publications.AbstractPublication;
 
 	function Book(category, pageCount) {
 		AbstractPublication.call(this, category, pageCount);
@@ -12,6 +12,6 @@
 	
 	Book.prototype.constructor = Book;
 
-	Factory.Book = Book;
+	Publications.Books.Book = Book;
 	
 })(this);

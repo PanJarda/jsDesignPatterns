@@ -1,9 +1,9 @@
 (function(global) {
 	'use strict';
 
-	var Factory = global.DesignPatterns.Factory;
-	var AbstractPublisher = Factory.AbstractPublisher;
-	var Journal = Factory.Journal;
+	var Publications = global.DesignPatterns.Factory.Publications;
+	var AbstractPublisher = Publications.AbstractPublisher;
+	var Journal = Publications.Journals.Journal;
 
 	function JournalPublisher() {
 		AbstractPublisher.apply(this, arguments);
@@ -18,5 +18,5 @@
 		return publication;
 	};
 
-	Factory.JournalPublisher = JournalPublisher;
+	Publications.Journals.JournalPublisher = JournalPublisher;
 })(this);
