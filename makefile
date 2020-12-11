@@ -14,8 +14,7 @@ state:
 	DesignPatterns/State/Printers/PrinterState/TurnedOnPrinterState.js \
 	DesignPatterns/State/Printers/PrinterState/WarmedUpPrinterState.js \
 	DesignPatterns/State/Printers/Printer.js \
-	DesignPatterns/State/Test.js \
-	DesignPatterns/State/main.js > public/State/build.js
+	DesignPatterns/State/Test.js > public/State/build.js
 
 factory:
 	cat \
@@ -30,8 +29,7 @@ factory:
 	DesignPatterns/Factory/Publications/Journals/index.js \
 	DesignPatterns/Factory/Publications/Journals/Journal.js \
 	DesignPatterns/Factory/Publications/Journals/JournalPublisher.js \
-	DesignPatterns/Factory/Test.js \
-	DesignPatterns/Factory/main.js > public/Factory/build.js
+	DesignPatterns/Factory/Test.js > public/Factory/build.js
 
 abstractFactory:
 	cat \
@@ -72,5 +70,4 @@ abstractFactory:
 	DesignPatterns/AbstractFactory/Tables/Utilities/index.js \
 	DesignPatterns/AbstractFactory/Tables/Utilities/PublicationList.js \
 	\
-	DesignPatterns/AbstractFactory/Test.js \
-	DesignPatterns/AbstractFactory/main.js > public/AbstractFactory/build.js
+	DesignPatterns/AbstractFactory/Test.js > public/AbstractFactory/build.js
