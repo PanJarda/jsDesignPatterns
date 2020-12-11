@@ -16,4 +16,4 @@
 	};
 
 	global.DesignPatterns.Factory.Publications.AbstractPublication = AbstractPublication;
-})(this)
+})(this);
