@@ -1,8 +1,8 @@
 (function(global) {
 	'use strict';
-
-	var InstantiationException = global.DesignPatterns.AbstractFactory.InstantiationException;
-	var UnimplementedAbstractMethodCallException = global.DesignPatterns.AbstractFactory.UnimplementedAbstractMethodCallException;
+	var AbstractFactory = global.DesignPatterns.AbstractFactory;
+	var InstantiationException = AbstractFactory.InstantiationException;
+	var UnimplementedAbstractMethodCallException = AbstractFactory.UnimplementedAbstractMethodCallException;
 
 	function AbstractCell(content) {
 		if (this.constructor === AbstractCell) {
@@ -15,5 +15,5 @@
 		throw new UnimplementedAbstractMethodCallException();
 	};
 
-	global.DesignPatterns.AbstractFactory.Tables.AbstractCell = AbstractCell;
+	AbstractFactory.Tables.AbstractCell = AbstractCell;
 })(this);
