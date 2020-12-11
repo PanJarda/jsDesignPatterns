@@ -1,17 +1,17 @@
 (function(global) {
-	'use strict';
-	
-	function UnimplementedAbstractMethodCallException() {
-		this.name = 'UnimplementedAbstractMethodCallException';
-	}
+  'use strict';
+  
+  function UnimplementedAbstractMethodCallException() {
+    this.name = 'UnimplementedAbstractMethodCallException';
+  }
 
-	function InstantiationException() {
-		this.name = 'InstantiationException';
-	}
+  function InstantiationException() {
+    this.name = 'InstantiationException';
+  }
 
-	DesignPatterns.AbstractFactory = {
-		UnimplementedAbstractMethodCallException: UnimplementedAbstractMethodCallException,
-		InstantiationException: InstantiationException
-	};
+  DesignPatterns.AbstractFactory = {
+    UnimplementedAbstractMethodCallException: UnimplementedAbstractMethodCallException,
+    InstantiationException: InstantiationException
+  };
 })(this);
 

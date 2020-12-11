@@ -1,5 +1,5 @@
 (function(global) {
-	'use strict';
+  'use strict';
 
-	global.DesignPatterns.State.Printers.PrinterState = {};
+  global.DesignPatterns.State.Printers.PrinterState = {};
 })(this);

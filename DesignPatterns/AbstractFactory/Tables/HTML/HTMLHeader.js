@@ -1,30 +1,30 @@
 (function(global) {
-	'use strict';
+  'use strict';
 
-	var AbstractHeader = global.DesignPatterns.AbstractFactory.Tables.AbstractHeader;
+  var AbstractHeader = global.DesignPatterns.AbstractFactory.Tables.AbstractHeader;
 
-	function HTMLHeader() {
-		AbstractHeader.call(this);
-	}
+  function HTMLHeader() {
+    AbstractHeader.call(this);
+  }
 
-	HTMLHeader.prototype = Object.create(AbstractHeader.prototype);
+  HTMLHeader.prototype = Object.create(AbstractHeader.prototype);
 
-	HTMLHeader.prototype.constructor = HTMLHeader;
+  HTMLHeader.prototype.constructor = HTMLHeader;
 
-	HTMLHeader.prototype.show = function() {
-		var header = document.createElement('thead');
-		var tr = document.createElement('tr');
-		var cells = this.cells;
-		var N = this.cells.length;
-		
-		for (var i = 0; i < N; i++) {
-			tr.appendChild(cells[i].show());
-		}
+  HTMLHeader.prototype.show = function() {
+    var header = document.createElement('thead');
+    var tr = document.createElement('tr');
+    var cells = this.cells;
+    var N = this.cells.length;
+    
+    for (var i = 0; i < N; i++) {
+      tr.appendChild(cells[i].show());
+    }
 
-		header.appendChild(tr);
+    header.appendChild(tr);
 
-		return header;
-	};
+    return header;
+  };
 
-	global.DesignPatterns.AbstractFactory.Tables.HTML.HTMLHeader = HTMLHeader;
+  global.DesignPatterns.AbstractFactory.Tables.HTML.HTMLHeader = HTMLHeader;
 })(this);

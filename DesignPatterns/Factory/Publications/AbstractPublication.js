@@ -1,19 +1,19 @@
 (function(global) {
-	'use strict';
+  'use strict';
 
-	function AbstractPublication(category, pageCount) {
-		this.category = category;
-		this.pageCount = pageCount;
-		this.pageNumber;
-	}
+  function AbstractPublication(category, pageCount) {
+    this.category = category;
+    this.pageCount = pageCount;
+    this.pageNumber;
+  }
 
-	AbstractPublication.prototype.open = function() {};
+  AbstractPublication.prototype.open = function() {};
 
-	AbstractPublication.prototype.close = function() {};
+  AbstractPublication.prototype.close = function() {};
 
-	AbstractPublication.prototype.setPageNumber = function(pageNumber) {
-		this.pageNumber = pageNumber;
-	};
+  AbstractPublication.prototype.setPageNumber = function(pageNumber) {
+    this.pageNumber = pageNumber;
+  };
 
-	global.DesignPatterns.Factory.Publications.AbstractPublication = AbstractPublication;
+  global.DesignPatterns.Factory.Publications.AbstractPublication = AbstractPublication;
 })(this);

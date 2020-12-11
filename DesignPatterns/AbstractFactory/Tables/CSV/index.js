@@ -1,4 +1,4 @@
 (function(global) {
-	'use strict';
-	global.DesignPatterns.AbstractFactory.Tables.CSV = {};
+  'use strict';
+  global.DesignPatterns.AbstractFactory.Tables.CSV = {};
 })(this);

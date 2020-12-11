@@ -1,5 +1,5 @@
 (function(global) {
-	'use strict';
+  'use strict';
 
-	global.DesignPatterns.AbstractFactory.Tables = {};
+  global.DesignPatterns.AbstractFactory.Tables = {};
 })(this);

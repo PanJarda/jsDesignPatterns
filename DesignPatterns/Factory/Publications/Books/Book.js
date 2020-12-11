@@ -1,17 +1,17 @@
 (function(global) {
-	'use strict';
+  'use strict';
 
-	var Publications = global.DesignPatterns.Factory.Publications;
-	var AbstractPublication = Publications.AbstractPublication;
+  var Publications = global.DesignPatterns.Factory.Publications;
+  var AbstractPublication = Publications.AbstractPublication;
 
-	function Book(category, pageCount) {
-		AbstractPublication.call(this, category, pageCount);
-	}
+  function Book(category, pageCount) {
+    AbstractPublication.call(this, category, pageCount);
+  }
 
-	Book.prototype = Object.create(AbstractPublication.prototype);
-	
-	Book.prototype.constructor = Book;
+  Book.prototype = Object.create(AbstractPublication.prototype);
+  
+  Book.prototype.constructor = Book;
 
-	Publications.Books.Book = Book;
-	
+  Publications.Books.Book = Book;
+  
 })(this);

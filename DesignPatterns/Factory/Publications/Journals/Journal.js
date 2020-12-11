@@ -1,17 +1,17 @@
 (function(global) {
-	'use strict';
+  'use strict';
 
-	var Publications = global.DesignPatterns.Factory.Publications;
-	var AbstractPublication = Publications.AbstractPublication;
+  var Publications = global.DesignPatterns.Factory.Publications;
+  var AbstractPublication = Publications.AbstractPublication;
 
-	function Journal(category, pageCount) {
-		AbstractPublication.call(this, category, pageCount);
-	}
+  function Journal(category, pageCount) {
+    AbstractPublication.call(this, category, pageCount);
+  }
 
-	Journal.prototype = Object.create(AbstractPublication.prototype);
-	
-	Journal.prototype.constructor = Journal;
+  Journal.prototype = Object.create(AbstractPublication.prototype);
+  
+  Journal.prototype.constructor = Journal;
 
-	Publications.Journals.Journal = Journal;
-	
+  Publications.Journals.Journal = Journal;
+  
 })(this);

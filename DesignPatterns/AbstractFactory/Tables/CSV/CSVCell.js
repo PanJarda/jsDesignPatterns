@@ -1,20 +1,20 @@
 (function(global) {
-	'use strict';
+  'use strict';
 
-	var Tables = global.DesignPatterns.AbstractFactory.Tables;
-	var AbstractCell = Tables.AbstractCell;
+  var Tables = global.DesignPatterns.AbstractFactory.Tables;
+  var AbstractCell = Tables.AbstractCell;
 
-	function CSVCell(content) {
-		AbstractCell.call(this, content);
-	}
+  function CSVCell(content) {
+    AbstractCell.call(this, content);
+  }
 
-	CSVCell.prototype = Object.create(AbstractCell.prototype);
+  CSVCell.prototype = Object.create(AbstractCell.prototype);
 
-	CSVCell.prototype.constructor = CSVCell;
+  CSVCell.prototype.constructor = CSVCell;
 
-	CSVCell.prototype.show = function() {
-		return this.content;
-	};
+  CSVCell.prototype.show = function() {
+    return this.content;
+  };
 
-	Tables.CSV.CSVCell = CSVCell;
+  Tables.CSV.CSVCell = CSVCell;
 })(this);

@@ -1,4 +1,4 @@
 (function(global) {
-	'use strict';
-	global.DesignPatterns.State = {};
+  'use strict';
+  global.DesignPatterns.State = {};
 })(this);

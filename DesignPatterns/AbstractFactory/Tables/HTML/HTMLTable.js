@@ -1,41 +1,41 @@
 (function(global) {
-	'use strict';
+  'use strict';
 
-	var Tables = global.DesignPatterns.AbstractFactory.Tables;
-	var AbstractTable = Tables.AbstractTable;
+  var Tables = global.DesignPatterns.AbstractFactory.Tables;
+  var AbstractTable = Tables.AbstractTable;
 
-	function HTMLTable(caption, HTMLRoot) {
-		AbstractTable.call(this, caption);
-		this.HTMLRoot = HTMLRoot;
-	}
+  function HTMLTable(caption, HTMLRoot) {
+    AbstractTable.call(this, caption);
+    this.HTMLRoot = HTMLRoot;
+  }
 
-	HTMLTable.prototype = Object.create(AbstractTable.prototype);
+  HTMLTable.prototype = Object.create(AbstractTable.prototype);
 
-	HTMLTable.prototype.constructor = HTMLTable;
+  HTMLTable.prototype.constructor = HTMLTable;
 
-	HTMLTable.prototype.show = function() {
-		var table = document.createElement('table');
-		table.border = 1;
-		
-		var caption = document.createElement('caption');
-		var captionTextNode = document.createTextNode(this.caption);
-		caption.appendChild(captionTextNode);
-		table.appendChild(caption);
+  HTMLTable.prototype.show = function() {
+    var table = document.createElement('table');
+    table.border = 1;
+    
+    var caption = document.createElement('caption');
+    var captionTextNode = document.createTextNode(this.caption);
+    caption.appendChild(captionTextNode);
+    table.appendChild(caption);
 
-		table.appendChild(this.header.show());
+    table.appendChild(this.header.show());
 
-		var rows = this.rows;
-		var N = rows.length;
-		var tbody = document.createElement('tbody');
+    var rows = this.rows;
+    var N = rows.length;
+    var tbody = document.createElement('tbody');
 
-		for (var i = 0; i < N; i++) {
-			tbody.appendChild(rows[i].show());
-		}
+    for (var i = 0; i < N; i++) {
+      tbody.appendChild(rows[i].show());
+    }
 
-		table.appendChild(tbody);
+    table.appendChild(tbody);
 
-		this.HTMLRoot.appendChild(table);
-	};
+    this.HTMLRoot.appendChild(table);
+  };
 
-	Tables.HTML.HTMLTable = HTMLTable;
+  Tables.HTML.HTMLTable = HTMLTable;
 })(this);

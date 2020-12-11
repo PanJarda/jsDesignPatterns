@@ -1,4 +1,4 @@
 (function(global) {
-	'use strict';
-	global.DesignPatterns.State.Printers = {};
+  'use strict';
+  global.DesignPatterns.State.Printers = {};
 })(this);
