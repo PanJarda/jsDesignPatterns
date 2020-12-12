@@ -1,4 +1,4 @@
-all: state factory abstractFactory
+all: state factory abstractFactory mvp
 
 state:
 	cat \
@@ -71,3 +71,15 @@ abstractFactory:
 	DesignPatterns/AbstractFactory/Tables/Utilities/PublicationList.js \
 	\
 	DesignPatterns/AbstractFactory/Test.js > public/AbstractFactory/build.js
+
+mvp:
+	cat \
+	DesignPatterns/MVP/index.js \
+	\
+	DesignPatterns/MVP/Model/index.js \
+	\
+	DesignPatterns/MVP/View/index.js \
+	\
+	DesignPatterns/MVP/Presenter/index.js \
+	\
+	> public/MVP/build.js
