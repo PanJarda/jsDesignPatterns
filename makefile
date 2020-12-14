@@ -1,7 +1,7 @@
-all: state factory abstractFactory mvp
+all: state factory abstractFactory
 
 state:
-	cat \
+	@cat \
 	DesignPatterns/index.js \
 	DesignPatterns/State/index.js \
 	DesignPatterns/State/Utilities/index.js \
@@ -17,7 +17,7 @@ state:
 	DesignPatterns/State/Test.js > public/State/build.js
 
 factory:
-	cat \
+	@cat \
 	DesignPatterns/index.js \
 	DesignPatterns/Factory/index.js \
 	DesignPatterns/Factory/Publications/index.js \
@@ -32,7 +32,7 @@ factory:
 	DesignPatterns/Factory/Test.js > public/Factory/build.js
 
 abstractFactory:
-	cat \
+	@cat \
 	DesignPatterns/index.js \
 	DesignPatterns/AbstractFactory/index.js \
 	DesignPatterns/AbstractFactory/Tables/index.js \
@@ -71,15 +71,3 @@ abstractFactory:
 	DesignPatterns/AbstractFactory/Tables/Utilities/PublicationList.js \
 	\
 	DesignPatterns/AbstractFactory/Test.js > public/AbstractFactory/build.js
-
-mvp:
-	cat \
-	DesignPatterns/MVP/index.js \
-	\
-	DesignPatterns/MVP/Model/index.js \
-	\
-	DesignPatterns/MVP/View/index.js \
-	\
-	DesignPatterns/MVP/Presenter/index.js \
-	\
-	> public/MVP/build.js
